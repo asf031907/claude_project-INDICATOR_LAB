@@ -970,7 +970,9 @@ Update the permanent project record.
 
 ## 7. তারপর BACKTEST DATA দিলে
 
-যদি TradingView Strategy Tester report / CSV / backtest table দাও, তখন:
+যদি TradingView Strategy Tester report / CSV / backtest table দাও, 
+
+তখন:
 
 <pre><code>BACKTEST AUDIT MODE
 
@@ -1018,6 +1020,83 @@ Do not declare success simply because net profit increased.
 
 Update the permanent research record.
 </code></pre>
+
+## বাস্তবে তুমি এভাবে apply করবে
+
+##### Step 1 — Claude-কে indicator দেবে
+
+> Analyze this indicator first. Do not modify it yet.
+
+##### Step 2 — Claude analysis করবে
+
+##### Step 3 — Pine Script বানাবে/modify করবে
+
+##### Step 4 — TradingView-তে activate করবে
+
+তারপর তুমি chart দেখে বলবে যেমন:
+
+> “এই indicator trend ভালো ধরছে, কিন্তু sideways market-এ অনেক false signal দিচ্ছে।”
+
+অথবা:
+
+> “Buy signal একটু দেরিতে আসছে।”
+
+অথবা:
+
+> “এই জায়গায় signal আসা উচিত ছিল কিন্তু আসেনি।”
+
+অথবা screenshot upload করে বলবে:
+
+> “এই highlighted area-তে কেন signal ভুল হয়েছে সেটা analyze করো।”
+
+**তখন তোমার Prompt হবে**
+
+<pre><code>CHART REVIEW MODE
+
+I tested the current indicator version on TradingView.
+
+I am providing my observations and/or chart screenshot.
+
+Do NOT immediately rewrite the indicator.
+
+First analyze:
+
+1. What is happening on the chart?
+2. Is the observed problem caused by the indicator's core logic, filtering, timing, market regime, or visualization?
+3. Is my observation logically valid?
+4. What is the likely root cause?
+5. What change could address the problem?
+6. What new weakness could that change introduce?
+7. Should this change be tested or rejected?
+
+Treat my observation as a hypothesis, not as proven fact.
+
+If a screenshot is provided, inspect the exact region and explain the signal behavior there.
+
+Then propose the smallest justified modification.
+
+Do not optimize blindly.
+
+Record this observation and proposed experiment in the project's permanent development record.
+</code></pre>
+
+#### আর BACKTEST AUDIT কখন ব্যবহার করবে?
+
+যখন তুমি **quantitative proof** দিতে চাও।
+
+অর্থাৎ:
+
+**Chart দেখে সমস্যা পেলাম → CHART REVIEW MODE**
+
+**পরিবর্তন করলাম → TradingView-তে test করলাম → result পেলাম → BACKTEST AUDIT MODE**
+
+তাই তোমার পুরো workflow হবে:
+
+**Indicator → Develop → TradingView Chart → তুমি observation দেবে → Claude diagnosis → 
+modification → আবার Chart → Backtest → Audit → next iteration**
+
+অর্থাৎ **screenshot optional, observation mandatory নয়—কিন্তু খুব useful; আর backtest**
+**report হলো quantitative validation-এর জন্য।**
 
 ---
 
